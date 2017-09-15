@@ -20,5 +20,16 @@ class HelloWorldController extends BaseController {
     public static function login() {
         View::make('login.html');
     }
+    
+       public static function ladder() {
+        View::make('ladder.html');
+    }
+    
+       public static function joinGame() {
+        View::make('joinGame.html');
+    }
+       public static function gameLog() {
+        View::make('gamelog.html');
+    }
 
 }

@@ -20,3 +20,16 @@ $routes->get('/login', function() {
 $routes->get('/personalinfo', function() {
     View::make('personalinfo.html');
 });
+$routes->get('/ladder', function() {
+    View::make('ladder.html');
+});
+
+$routes->get('/joingame', function() {
+    View::make('joinGame.html');
+});
+$routes->get('/gamelog', function() {
+    View::make('gamelog.html');
+});
+$routes->get('/detailedGameInfo', function() {
+    View::make('detailedGameInformation.html');
+});

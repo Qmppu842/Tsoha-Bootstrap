@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Game On</h1>
+<form>
+    <h4>Valitse korttisi</h4>
+    <select name="KortinValitsin">
+        <option>Rock</option>
+        <option>Paper</option>
+        <option>Scissors</option>
+        <option>Lizard</option>
+        <option>Spock</option>
+    </select>
+    <h4>Valitse pelisi</h4>
+    <select name="GameSelector">
+        <option>Random</option>
+        <option>Epic gurula game</option>
+        <option>Competitive Navetta League</option>
+    </select>
+    <br/>
+    <input type="submit" value="Submit" name="submit" />
+</form>
+{% endblock %}
