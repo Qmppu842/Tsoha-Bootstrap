@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Omat tiedot</h1>
+<button type="button" name="editButton">Edit</button>
+<div id="edibleparts" style="display: none">
+    <form>
+        <input type="text" placeholder="get username from db"/>
+        <br/>
+        <input type="email" placeholder="get email from db"/>
+        <br/>
+        <button type="submit">Save data</button>
+    </form>
+
+    <form>
+        <label alt="Ilmaiset serverit ei maksa itseään, you know?">Enter password if you thing I can survive with out every user, you cruel one...</label>
+        <input type="password" placeholder="Enter password"/> 
+        <button type="submit">Delete account</button>
+    </form>
+</div>
+<div id="unedibleinformations">
+    <!--TODO: GET DATA FROM DB!!!-->
+    <p>username form db</p> 
+    <p>email form db</p>
+    <p><b>Won:</b></p>
+    <p><b>Lost:</b></p>
+    <p><b>Tie:</b></p>
+    <p><b>Elo:</b></p>
+    <p><b>Arkkivihollinen:</b></p>
+    <p><b>Favorite card:</b></p>
+    <p><b>Best streak:</b></p>
+    <p><b>Current streak:</b></p>
+    <p><b>Avarage streak:</b></p>
+
+
+</div>
+
+
+
+
+
+{% endblock %}

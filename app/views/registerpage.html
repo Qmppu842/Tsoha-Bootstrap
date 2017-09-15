@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Register</h2>
+
+<form>
+    <label>Username</label>
+    <input type="text" placeholder="Enter username" required="true"/>
+    <br/>
+
+    <label>Password</label>
+    <input type="password" name="password" required="true" placeholder="Enter password" />
+    <br/>
+
+    <label>Password again</label>
+    <input type="password" name="password" required="true" placeholder="Enter password again" />
+    <br/>
+
+    <label>Email</label>
+    <input type="email" placeholder="Enter email" required="false"/>
+    <br/>
+
+    <label>Email again</label>
+    <input type="email" placeholder="Enter email" required="false"/>
+    <br/>
+    <!--TODO: mahdollinen oma suolan ja pippurin lisäys-->
+
+    <button type="submit">Submit</button> 
+
+</form>
+
+
+
+{% endblock %}
