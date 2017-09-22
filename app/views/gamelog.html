@@ -4,8 +4,35 @@
 
 <div id="gamefeed"> 
     TODO populate this div with games from db.
-    
-    
+
+    <table>
+        <thead>
+            <tr>
+                <td>Game name</td>
+                <!--                <td>Result</td>
+                                <td>Winner</td>
+                                <td>Loser</td>  -->
+                <td></td>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for peli in games %}
+            <tr>
+                <td>{{peli.name}}</td>cc
+                <td>{{peli.is_over_yet}}</td>aa
+                <td><a href="{{base_path}}/detailedgameinfo/{{peli.id}}">Show more</a></td>bb
+
+
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+   </table>
+
+
 </div>
 
 

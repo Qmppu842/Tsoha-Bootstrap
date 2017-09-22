@@ -5,31 +5,35 @@ $routes->get('/', function() {
 });
 
 $routes->get('/hiekkalaatikko', function() {
-//    HelloWorldController::sandbox();
-    View::make('helloworld.html');
+    HelloWorldController::sandbox();
 });
 
-
 $routes->get('/register', function() {
-    View::make('registerpage.html');
+    HelloWorldController::register();
 });
 
 $routes->get('/login', function() {
-    View::make('login.html');
+    HelloWorldController::login();
 });
 $routes->get('/personalinfo', function() {
-    View::make('personalinfo.html');
+    HelloWorldController::personalInfo();
 });
 $routes->get('/ladder', function() {
-    View::make('ladder.html');
+    HelloWorldController::ladder();
 });
 
 $routes->get('/joingame', function() {
-    View::make('joinGame.html');
+    HelloWorldController::joinGame();
 });
 $routes->get('/gamelog', function() {
-    View::make('gamelog.html');
+    game_controller::GameLog();
+});
+$routes->get('/detailedGameInfo/:id', function($game_id) {
+    game_controller::detailedGameInfo($game_id);
 });
 $routes->get('/detailedGameInfo', function() {
-    View::make('detailedGameInformation.html');
+    game_controller::detailedGameInfo();
 });
+//$routes->get('/detailedGameInfo', function() {
+//    HelloWorldController::detailedGameInfo();
+//});
