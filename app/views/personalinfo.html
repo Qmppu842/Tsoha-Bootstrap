@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Omat tiedot</h1>
+<h1><b>Omat tiedot</b></h1>
 <button type="button" name="editButton">Edit</button>
 <div id="edibleparts" style="display: none">
     <form>
@@ -20,17 +20,20 @@
 </div>
 <div id="unedibleinformations">
     <!--TODO: GET DATA FROM DB!!!-->
-    <p>username form db</p> 
-    <p>email form db</p>
-    <p><b>Won:</b></p>
-    <p><b>Lost:</b></p>
-    <p><b>Tie:</b></p>
-    <p><b>Elo:</b></p>
-    <p><b>Arkkivihollinen:</b></p>
-    <p><b>Favorite card:</b></p>
-    <p><b>Best streak:</b></p>
-    <p><b>Current streak:</b></p>
-    <p><b>Avarage streak:</b></p>
+    <p><b>Nimimerkki: {{ player.name }}</b></p> 
+    <p><b>Email: {{ player.email }}</b></p>
+    <p><b>Won: {{ playerStats.won }}</b></p>
+    <p><b>Lost: {{ playerStats.lost }}</b></p>
+    <p><b>Tie: {{ playerStats.tie }}</b></p>
+    <p><b>Elo: {{ playerStats.elo }}</b></p>
+    <p><b>Arkkivihollinen: {{ playerStats.nemesis }}</b></p> 
+    <!--TODO: Hae nemesiksen nimi eikä id...-->
+    <p><b>Favorite card: {% if playerStats.fav_card == -1%} Pelaa enemmän... {% elseif playerStats.fav_card == 0 %} Spock 
+            {% elseif playerStats.fav_card == 1 %} Sakset {% elseif playerStats.fav_card == 2 %} Paperi
+            {% elseif playerStats.fav_card == 3 %} Kivi {% elseif playerStats.fav_card == 4 %} Lisko {% endif %}</b></p>
+    <p><b>Best streak: {{ playerStats.best_streak }}</b></p>
+    <p><b>Current streak: {{ playerStats.curr_streak }}</b></p>
+    <p><b>Avarage streak: {{ playerStats.avg_streak }}</b></p>
 
 
 </div>

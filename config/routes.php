@@ -15,15 +15,20 @@ $routes->get('/register', function() {
 $routes->get('/login', function() {
     HelloWorldController::login();
 });
-$routes->get('/personalinfo', function() {
-    HelloWorldController::personalInfo();
-});
 $routes->get('/ladder', function() {
     HelloWorldController::ladder();
 });
+//Player Controlleri
+$routes->get('/personalinfo', function() {
+    player_controller::personalInfo();
+});
+$routes->get('/personalinfo/:id', function($player_id) {
+    player_controller::userInfo($player_id);
+});
 
+//Game Controlleri osa
 $routes->get('/joingame', function() {
-    HelloWorldController::joinGame();
+    game_controller::joinGame();
 });
 $routes->get('/gamelog', function() {
     game_controller::GameLog();

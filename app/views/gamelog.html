@@ -5,13 +5,13 @@
 <div id="gamefeed"> 
     TODO populate this div with games from db.
 
-    <table>
+<!--    <table>
         <thead>
             <tr>
                 <td>Game name</td>
-                <!--                <td>Result</td>
+                                <td>Result</td>
                                 <td>Winner</td>
-                                <td>Loser</td>  -->
+                                <td>Loser</td>  
                 <td></td>
 
             </tr>
@@ -20,18 +20,27 @@
         <tbody>
             {% for peli in games %}
             <tr>
-                <td>{{peli.name}}</td>cc
-                <td>{{peli.is_over_yet}}</td>aa
-                <td><a href="{{base_path}}/detailedgameinfo/{{peli.id}}">Show more</a></td>bb
+                <td>{{peli.name}}cc</td>
+                <td>{{peli.is_over_yet}} aa</td>
+                {% if peli.is_over_yet %}
+        <p>Peli loppunut</p>
+        {% else %}
+        <p>Peli kesken</p>
+        {% endif %}
+        <td><a href="{{base_path}}/detailedgameinfo/{{peli.id}}">Show more</a>bb</td>
 
 
-            </tr>
-            {% endfor %}
+        </tr>
+        {% endfor %}
+
 
 
         </tbody>
-   </table>
+    </table>-->
 
+        {% for i in 0..10 %}
+        <!--<p>{{ i }}</p>-->
+        {% endfor %}
 
 </div>
 

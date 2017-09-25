@@ -57,5 +57,11 @@ class playerstats extends BaseModel {
         }
         return $games;
     }
+    
+    
+    public function getNemesis() {
+        return $this->nemesis;
+    }
+    
 
 }

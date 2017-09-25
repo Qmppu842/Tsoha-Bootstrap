@@ -28,9 +28,11 @@ class HelloWorldController extends BaseController {
         //Playergame kint
         $pgame = playergame::find(1);
         $pgames = playergame::all();
+        $playersIngame = playergame::findAllPlayersInGame(1);
 
         Kint::dump($pgame);
         Kint::dump($pgames);
+        Kint::dump($playersIngame);
 
         //Playerstats kint
         $pstats = playerstats::find(1);
@@ -52,17 +54,17 @@ class HelloWorldController extends BaseController {
         View::make('ladder.html');
     }
 
-    public static function joinGame() {
-        View::make('joinGame.html');
-    }
+//    public static function joinGame() {
+//        View::make('joinGame.html');
+//    }
 
     public static function gameLog() {
         View::make('gamelog.html');
     }
-
-    public static function personalInfo() {
-        View::make('personalinfo.html');
-    }
+//
+//    public static function personalInfo() {
+//        View::make('personalinfo.html');
+//    }
 
     public static function detailedGameInfo() {
         View::make('detailedGameInformation.html');

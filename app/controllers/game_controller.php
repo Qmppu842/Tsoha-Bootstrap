@@ -8,7 +8,7 @@
 class game_controller extends BaseController {
 
     public static function GameLog() {
-        $games = array(Game::all());
+        $games = Game::all(); //array(Game::all());
         View::make('gamelog.html', array('games' => $games));
     }
 
@@ -27,4 +27,13 @@ class game_controller extends BaseController {
 //  public static function detailedGameInfo() {
 //        View::make('detailedGameInformation.html');
 //    }
+
+
+
+    public static function joinGame() {
+        $openGames = playergame::findAllGamesWithSpace();
+        Kint::dump($openGames);
+        View::make('joinGame.html', array('openGames' => $openGames));
+    }
+
 }

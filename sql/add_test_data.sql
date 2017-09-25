@@ -8,12 +8,28 @@ INSERT INTO Player (name, password) VALUES ('omppu3','m3');
 
 -- Game taulun testidata
 INSERT INTO Game (name) VALUES ('Testgame0');
+INSERT INTO Game (name) VALUES ('Testgame1');
 INSERT INTO Game (name) VALUES ('Testgame2');
+
+
+
+
+INSERT INTO Game (name) VALUES ('Testgame12');
+INSERT INTO Game (name) VALUES ('Testgame13');
+INSERT INTO Game (name) VALUES ('Testgame14');
+INSERT INTO Game (name) VALUES ('Testgame15');
+INSERT INTO Game (name) VALUES ('Testgame16');
+INSERT INTO Game (name) VALUES ('Testgame17');
+INSERT INTO Game (name) VALUES ('Testgame18');
+
 -- INSERT INTO Game;-- () VALUES ();
 
 -- PlayerGame taulun testidata
 INSERT INTO Playergame (game_id, player_id, picked) VALUES (1,1,1);
 INSERT INTO Playergame (game_id, player_id, picked) VALUES (1,2,3);
+INSERT INTO Playergame (game_id, player_id, picked) VALUES (1,1,1);
+INSERT INTO Playergame (game_id, player_id, picked) VALUES (2,2,3);
+INSERT INTO Playergame (game_id, player_id, picked) VALUES (2,1,1);
 
 -- Playerstats taulun testidata
 INSERT INTO Playerstats (player_id, nemesis, won) VALUES (1, 2, 10);

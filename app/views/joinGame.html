@@ -14,8 +14,15 @@
     <h4>Valitse pelisi</h4>
     <select name="GameSelector">
         <option>Random</option>
+        {% for game in openGames %}
+        <option>{{ game.name }}</option>
+        {% endfor %}
+<!--        {% for i in 0..10 %}
+        <option>{{i}}</option>
+        {% endfor %}-->
         <option>Epic gurula game</option>
         <option>Competitive Navetta League</option>
+         <!--TODO hae tähän avoimet pelit tietokannasta-->
     </select>
     <br/>
     <input type="submit" value="Submit" name="submit" />
