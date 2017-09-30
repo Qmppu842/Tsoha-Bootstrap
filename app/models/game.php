@@ -43,7 +43,16 @@ class Game extends BaseModel {
                 'is_over_yet' => ['is_over_yet']
             ));
         }
+        Kint::dump($games);
+        Kint::show();
         return $games;
+    }
+
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Game (name, max_players, is_it_over_yet) VALUES (:name, :max_players, :is_is_over_yet) RETURNING id;');
+        $query->execute(array('name' => $this->name, 'max_players' => $this->max_players, 'is_is_over_yet' => $this->is_over_yet));
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
 
 }

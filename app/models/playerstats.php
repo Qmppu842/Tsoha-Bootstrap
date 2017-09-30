@@ -58,6 +58,17 @@ class playerstats extends BaseModel {
         return $games;
     }
     
+        public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Playerstats (player_id, won, lost, tie, best_streak, avg_streak, curr_streak, nemesis, fav_card, elo) VALUES (:player_id, :won, :lost, :tie, :best_streak, :avg_streak, :curr_streak, :nemesis, :fav_card, :elo) RETURNING player_id;');
+        $query->execute(array(
+            'player_id' => $this->player_id, 'won' => $this->won,
+            'lost' => $this->lost,'tie' => $this->tie, 'best_steark' => $this->best_streak, 
+            'avg_streak' => $this->avg_streak, 'curr_streak' => $this->curr_streak,
+            'nemesis' => $this->nemesis, 'fav_card' => $this->fav_card, 'elo' =>$this->elo));
+        $row = $query->fetch();
+        $this->player_id = $row['player_id'];
+    }
+    
     
     public function getNemesis() {
         return $this->nemesis;

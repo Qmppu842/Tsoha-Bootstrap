@@ -22,7 +22,6 @@ class player_controller extends BaseController {
         $player = player::find($player_id);
         $playerStats = playerstats::find($player_id);
 //        $nemesis = player::find($playerStats['nemesis']);
-
 //        $holeUser[] = $player[0];
 //        $holeUser[] = $player[1];
 //        for ($index = 1; $index < count($playerStats); $index++) {
@@ -34,8 +33,29 @@ class player_controller extends BaseController {
         Kint::dump($playerStats);
 //        Kint::dump($holeUser);
 
-        View::make('personalinfo.html', 
-                array('player' => $player, 'playerStats' => $playerStats));
+        View::make('personalinfo.html', array('player' => $player, 'playerStats' => $playerStats));
+    }
+
+    public static function update($id) {
+        $params = $_POST;
+
+        $atributes = array('id' => $row['id'],
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'password' => $row['password']);
+
+        $player = new player($attributes);
+        $errors = $player->errors();
+//        TODO: proper error handling...
+        if (FALSE) {
+            
+        } else {
+            $player->
+        }
+    }
+
+    public static function delete($id) {
+        
     }
 
 }

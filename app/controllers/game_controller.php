@@ -9,6 +9,8 @@ class game_controller extends BaseController {
 
     public static function GameLog() {
         $games = Game::all(); //array(Game::all());
+        Kint::dump($games);
+        Kint::show();
         View::make('gamelog.html', array('games' => $games));
     }
 

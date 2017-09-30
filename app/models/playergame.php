@@ -174,4 +174,10 @@ class playergame extends BaseModel {
         return $games;
     }
 
+    
+      public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Playergame (game_id, player_id, picked) VALUES (:game_id, :player_id, :picked);');
+        $query->execute(array('game_id' => $this->game_id, 'player_id' => $this->player_id, 'picked' => $this->picked));
+        $query->fetch();
+    }
 }

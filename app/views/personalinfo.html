@@ -1,21 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
 
+<script>
+    function onEditClick(){
+        document.getElementById("unedibleinformation").style.display = "none";
+        document.getElementById("edibleparts").style.display = "auto";
+        
+    }
+    
+    
+</script>
+
 <h1><b>Omat tiedot</b></h1>
-<button type="button" name="editButton">Edit</button>
+<button type="button" onclick="onEditClick()" name="editButton">Edit</button>
 <div id="edibleparts" style="display: none">
     <form>
-        <input type="text" placeholder="get username from db"/>
+        <input type="text" placeholder="{{ player.name }}"/>
         <br/>
-        <input type="email" placeholder="get email from db"/>
+        <input type="email" placeholder="{{ player.email }}"/>
         <br/>
-        <button type="submit">Save data</button>
+        <button type="submit" name="save_data">Save data</button>
     </form>
 
     <form>
         <label alt="Ilmaiset serverit ei maksa itseään, you know?">Enter password if you thing I can survive with out every user, you cruel one...</label>
         <input type="password" placeholder="Enter password"/> 
-        <button type="submit">Delete account</button>
+        <button type="submit" name="delete_account">Delete account</button>
     </form>
 </div>
 <div id="unedibleinformations">

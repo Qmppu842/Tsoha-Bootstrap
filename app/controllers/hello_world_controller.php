@@ -51,6 +51,7 @@ class HelloWorldController extends BaseController {
     }
 
     public static function ladder() {
+//        echo 'MOIOIOI';
         View::make('ladder.html');
     }
 

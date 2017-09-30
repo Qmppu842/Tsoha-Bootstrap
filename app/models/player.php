@@ -46,4 +46,12 @@ class player extends BaseModel {
         return $players;
     }
 
+
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Player (name, email, password) VALUES (:name, :email, :password) RETURNING id;');
+        $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
 }
