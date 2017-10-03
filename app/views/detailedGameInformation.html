@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1>Game data</h1>
+<!--TODO: poista nää-->
+<!--<h1>Game data</h1>
 <h2>Winner(s):</h2> <p>Omppu (Paperi)</p>
-<h2>Loser(s):</h2><p>Ota dataa...</p> 
+<h2>Loser(s):</h2><p>Ota dataa...</p> -->
 <ol>
 
-    <li>{{game.name}}</li>
-    <li>{{game.id}}</li>
-    <li>{{game.is_over_yet}}</li>
-    <li>{{game.max_players}}</li>
+    <li>Game name: {{game.name}}</li>
+    <li>Game Id: {{game.id}}</li> <!--TODO:delete this field;-->
+    <li>Onko loppunut: {% if game.is_it_over_yet == 1 %} Kyllä {% else %} Ei {% endif %}</li>
+    <li>Max players: {{game.max_players}}</li>
+    <!--TODO: tee joustavampi systeemi näyttämään oikeat pelaaja määrät-->
+    <!--TODO: tyylittely-->
+    <li>valitsi:pelaaja</li>
+    <!--{% for i in 0..2 %}-->
+    <li>{{picked[i]}}:{{players[i]}}</li>
+    <!--{% endfor %}-->
+    
 </ol>
 
 

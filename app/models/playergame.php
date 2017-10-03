@@ -102,6 +102,28 @@ class playergame extends BaseModel {
         }
         return $playersInGame;
     }
+    
+    public static function playerCountInGame($game_id){
+         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Playergame WHERE game_id = :game_id');
+        $query->execute(array('game_id' => $game_id));
+
+        $rows = $query->fetchAll();
+//        $playersInGame = array();
+//
+//        foreach ($rows as $row) {
+//            $playersInGame[] = new playergame(array(
+//                'player_id' => $row['player_id'],
+//                'game_id' => $row['game_id'],
+//                'picked' => $row['picked']
+//            ));
+//        }
+        Kint::dump($rows);
+        echo 'Jos näet tämän niin mene playergameen playerCountInGame metodiin';
+        //TODO: muuta palautus arvo vastaamaan countin tulosta
+        return 1;
+        
+        
+    }
 
 //    public static function findAllGamesWithSpace() {
 //        $query = DB::connection()->prepare('SELECT * FROM Playergame');
@@ -174,10 +196,39 @@ class playergame extends BaseModel {
         return $games;
     }
 
-    
-      public function save() {
+    public function save() {
         $query = DB::connection()->prepare('INSERT INTO Playergame (game_id, player_id, picked) VALUES (:game_id, :player_id, :picked);');
         $query->execute(array('game_id' => $this->game_id, 'player_id' => $this->player_id, 'picked' => $this->picked));
         $query->fetch();
     }
+
+    public function update($id) {
+//        $query = DB::connection()->prepare('UPDATE Playergame SET name, email, password WHERE id = :id ');
+//        $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'id' => $id));
+//        $row = $query->fetch();
+//
+//        Kint::dump($row);
+
+        error_log('Playergame ei pitäisi tarvita updatea...');
+    }
+
+    public function destroyByPlayerId($id) {
+//        $query = DB::connection()->prepare('DELETE Playergame WHERE player_id = :id ');
+//        $query->execute(array('id' => $id));
+//        $row = $query->fetch();
+//
+//        Kint::dump($row);
+        error_log('Tätä ei pidä käyttää missään tilanteessa');
+        
+        //TODO: Aina kun pelaaja poistetaan niin pelien invalidoinnin välttämiseksi tee dummy account joka korvaa sen jälkeen pelaajan ja sitten dummy account saa voitot ja häviöt
+    }
+
+    public function destroyByGameId($id) {
+        $query = DB::connection()->prepare('DELETE Playergame WHERE game_id = :id ');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
 }

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-
+<!--TODO: tyylittely-->
 
 
 <h2>Login</h2>
 
-<form>
+<form method="post" action="{{base_path}}/login">
     <label>Username</label>
-    <input type="text" class="form-control" placeholder="Enter username" required="true"/>
+    <input name="playername" type="text" class="form-control" placeholder="Enter username" required="true"/>
     <br/>
 
     <label>Password</label>
-    <input type="password" class="form-control" name="password" required="true" placeholder="Enter password" />
+    <input name="password" type="password" class="form-control" name="password" required="true" placeholder="Enter password" />
     <br/>
     <input type="checkbox" class="form-control" checked="checked"/> 
     <p>Remember me</p>

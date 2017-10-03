@@ -17,6 +17,10 @@ class player extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Player WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
+        
+        Kint::dump($row);
+//        die();
+        
         if ($row) {
             $player = new player(array(
                 'id' => $row['id'],
@@ -46,12 +50,39 @@ class player extends BaseModel {
         return $players;
     }
 
-
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Player (name, email, password) VALUES (:name, :email, :password) RETURNING id;');
         $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
+
+    public function update($id) {
+        $query = DB::connection()->prepare('UPDATE Player SET name, email, password WHERE id = :id ');
+        $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public function destroy($id) {
+        $query = DB::connection()->prepare('DELETE player WHERE id = :id ');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public static function authenticate($params) {
+        $query = DB::connection()->prepare('SELECT * Player WHERE name = :name AND password = :password LIMIT 1');
+        $query->execute(array('name' => $name, 'password' => $password));
+        $row = $query->fetch();
+        if ($row) {
+            return new player(array('id' => $query['id'], 'name' => $query['name'],
+                'email' => $query['email'], 'password' => $query['password']));
+        } else {
+            return null;
+        }
     }
 
 }

@@ -11,6 +11,7 @@ class Game extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        settype($this->is_over_yet, 'boolean');
     }
 
     public static function find($id) {
@@ -44,7 +45,6 @@ class Game extends BaseModel {
             ));
         }
         Kint::dump($games);
-        Kint::show();
         return $games;
     }
 
@@ -54,5 +54,22 @@ class Game extends BaseModel {
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+
+    public function update($id) {
+        $query = DB::connection()->prepare('UPDATE Game SET name, is_over_yet WHERE id = :id ');
+        $query->execute(array('name' => $this->name, 'is_over_yet' => $this->is_over_yet, 'id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+         public function destroy($id) {
+        $query = DB::connection()->prepare('DELETE Game WHERE id = :id ');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+
 
 }

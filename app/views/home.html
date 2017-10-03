@@ -1,13 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--TODO: tyylittely-->
 <div class="page-header">
     <h1>Tervetuloa tietokanta KPS-jatkettuun!</h1>
 </div>
 <h2>Viimeisimmät pelit</h2>
 <div class="gamefeed">
-Ota tietokannasta pelijä jotka ovat jo loppuneet.
+    <!--TODO:-->
+    Ota tietokannasta pelijä jotka ovat jo loppuneet.
 </div>
+<ul>
+    <!--TODO: tee tämä toimivaksi mieluummin niin että on erille html sivu joka
+    lisätään tähän täydennettynä niin että jokainen lisätty sivu vastaa yhtä peliä.-->
+    {% for i in 0..9 %}
+    <li>
+        <p>
+            {{ games[i].name }}
+            <!--{{ Game.date }}-->
+        </p>
+        <a href="{{base_path}}/detailedGameInfo/{{games[i].id}}"> Show more</a>
+
+    </li>
+    {% endfor %}
+
+
+</ul>
+
 
 
 

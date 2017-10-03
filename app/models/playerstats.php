@@ -57,22 +57,38 @@ class playerstats extends BaseModel {
         }
         return $games;
     }
-    
-        public function save() {
+
+    public function save() {
         $query = DB::connection()->prepare('INSERT INTO Playerstats (player_id, won, lost, tie, best_streak, avg_streak, curr_streak, nemesis, fav_card, elo) VALUES (:player_id, :won, :lost, :tie, :best_streak, :avg_streak, :curr_streak, :nemesis, :fav_card, :elo) RETURNING player_id;');
         $query->execute(array(
             'player_id' => $this->player_id, 'won' => $this->won,
-            'lost' => $this->lost,'tie' => $this->tie, 'best_steark' => $this->best_streak, 
+            'lost' => $this->lost, 'tie' => $this->tie, 'best_steark' => $this->best_streak,
             'avg_streak' => $this->avg_streak, 'curr_streak' => $this->curr_streak,
-            'nemesis' => $this->nemesis, 'fav_card' => $this->fav_card, 'elo' =>$this->elo));
+            'nemesis' => $this->nemesis, 'fav_card' => $this->fav_card, 'elo' => $this->elo));
         $row = $query->fetch();
         $this->player_id = $row['player_id'];
     }
-    
-    
+
     public function getNemesis() {
         return $this->nemesis;
     }
-    
+
+    public function update($id) {
+        $query = DB::connection()->prepare('UPDATE Playerstats SET won, lost, tie, best_streak, avg_streak, curr_streak, nemesis, fav_card, elo WHERE player_id = :id ');
+        $query->execute(array('won' => $this->won, 'lost' => $this->lost, 'tie' => $this->best_streak,
+            'avg_streak' => $this->avg_streak, 'curr_streak' => $this->curr_streak,
+            'nemesis' => $this->nemesis, 'fav_card' => $this->fav_card, 'elo' => $this->elo, 'id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public function destroy($id) {
+        $query = DB::connection()->prepare('DELETE Playerstats WHERE player_id = :id ');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
 
 }

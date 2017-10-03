@@ -50,12 +50,36 @@ class player_controller extends BaseController {
         if (FALSE) {
             
         } else {
-            $player->
+            $player->update();
+
+            Redirect::to('/player/' . $player->id, array('message' => 'Tiedot päivitetty!'));
         }
     }
 
-    public static function delete($id) {
-        
+//    public static function delete($id) {
+//        
+//    }
+
+    public static function login() {
+        View::make('login.html');
+    }
+
+    public static function loginPost() {
+
+        $params = $_POST;
+
+        $player = Player::authenticate($params['playername'], $params['password']);
+
+        if (!$player) {
+            //TODO: Login error login sivuun
+        } else {
+            //TODO: User etusivu.
+        }
+
+
+
+
+        View::make('login.html');
     }
 
 }
