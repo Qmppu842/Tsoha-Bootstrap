@@ -66,20 +66,29 @@ class player extends BaseModel {
     }
 
     public function destroy($id) {
-        $query = DB::connection()->prepare('DELETE player WHERE id = :id ');
+        $stats = playerstats::find($id);
+        $stats->destroy($id);
+        $query = DB::connection()->prepare('DELETE FROM player WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
+            
+        
         Kint::dump($row);
     }
 
-    public static function authenticate($params) {
-        $query = DB::connection()->prepare('SELECT * Player WHERE name = :name AND password = :password LIMIT 1');
-        $query->execute(array('name' => $name, 'password' => $password));
+    public static function authenticate($namee, $passwordd) {
+        $query = DB::connection()->prepare('SELECT * FROM Player WHERE name = :name AND password = :password LIMIT 1');
+        $query->execute(array('name' => $namee, 'password' => $passwordd));
         $row = $query->fetch();
+        
+        Kint::dump($row);
+        Kint::dump($namee);
+        Kint::dump($passwordd);
+        
         if ($row) {
-            return new player(array('id' => $query['id'], 'name' => $query['name'],
-                'email' => $query['email'], 'password' => $query['password']));
+            return new player(array('id' => $row['id'], 'name' => $row['name'],
+                'email' => $row['email'], 'password' => $row['password']));
         } else {
             return null;
         }

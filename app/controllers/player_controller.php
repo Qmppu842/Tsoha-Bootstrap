@@ -55,6 +55,18 @@ class player_controller extends BaseController {
             Redirect::to('/player/' . $player->id, array('message' => 'Tiedot päivitetty!'));
         }
     }
+    
+    public static function delete($id){
+        self::check_logged_in();
+        $player = player::find($id);
+        Kint::dump($player);
+//        Kint::trace();
+//        die();
+        $player->destroy($id);
+        self::logout();
+        Redirect::to('/', array('message' => 'Näkemiin!'));
+        
+    }
 
 //    public static function delete($id) {
 //        
@@ -67,9 +79,12 @@ class player_controller extends BaseController {
     public static function loginPost() {
 
         $params = $_POST;
+//        echo 'moi';
+        Kint::dump($params);
+//        die();
+        $player = player::authenticate($params['playername'], $params['password']);
 
-        $player = Player::authenticate($params['playername'], $params['password']);
-
+        
         if (!$player) {
             //TODO: Login error login sivuun
             echo 'Moi, tämä on login error.';
@@ -83,6 +98,40 @@ class player_controller extends BaseController {
 
 
         View::make('login.html');
+    }
+    
+     public static function register() {
+        View::make('registerpage.html');
+    } 
+    public static function registerPost() {
+        $params = $_POST;
+        
+        Kint::dump($params);
+//        die();
+        $attributes = array(
+        'name' => $params['username'],
+        'email' => $params['email'],
+        'password' => $params['password']);
+            
+        Kint::dump($attributes);
+            
+        $newPlayer = new player($attributes);
+        
+        $newPlayer->save();
+        
+        
+
+//        $player = new player($attributes);
+        
+        Redirect::to('/', array('message' => 'Tervetuloa ' . $newPlayer->name . '!'));
+//        View::make('register.html');
+    }
+    
+    public static function logout(){
+        $_SESSION['user'] = null;
+        Redirect::to('/', array('message' => 'Yarrr, Yarrr do what you want because pirates are free Yarrr!! (Logged out)'));
+        
+        
     }
 
 }

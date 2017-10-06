@@ -2,6 +2,8 @@
 {% block content %}
 <!--TODO: tyylittely-->
 <h1>Game On</h1>
+<!--TODO: tomiva peliin liittyminen-->
+
 <form>
     <h4>Valitse korttisi</h4>
     <select name="KortinValitsin">
@@ -13,15 +15,15 @@
     </select>
     <h4>Valitse pelisi</h4>
     <select name="GameSelector">
-        <option>Random</option>
+        <option value="random">Random</option>
         {% for game in openGames %}
-        <option>{{ game.name }}</option>
+        <option value="{{ game.id }}">{{ game.name }}</option>
         {% endfor %}
 <!--        {% for i in 0..10 %}
         <option>{{i}}</option>
         {% endfor %}-->
-        <option>Epic gurula game</option>
-        <option>Competitive Navetta League</option>
+<!--        <option>Epic gurula game</option>
+        <option>Competitive Navetta League</option>-->
          <!--TODO hae tähän avoimet pelit tietokannasta-->
     </select>
     <br/>

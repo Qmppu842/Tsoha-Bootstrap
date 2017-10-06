@@ -41,14 +41,29 @@
                         <!-- Navigaation linkit -->
                         <li><a href="{{base_path}}">Etusivu</a></li>
                         <li><a href="{{base_path}}/register">Register</a></li>
-                        <li><a href="{{base_path}}/login">Login</a></li>
+                        
                         <li><a href="{{base_path}}/ladder">Tilastot</a></li>
                         <li><a href="{{base_path}}/tietokantayhteys">DB</a></li>
                         <li><a href="{{base_path}}/gamelog">Game log</a></li>
                         <li><a href="{{base_path}}/joingame">Join Game</a></li>
                         <li><a href="{{base_path}}/detailedGameInfo/1">Game Information</a></li>
                         <li><a href="{{base_path}}/hiekkalaatikko">Hiekkalaatikko</a></li>
+                        
+                        {% if user_logged_in %}
+                        <!--TODO: make so that personal info page shows correct user page-->
+                        <li><a href="{{base_path}}/personalinfo/{{user_logged_in.id}}">Personal info</a></li>
+                          {% else %}
                         <li><a href="{{base_path}}/personalinfo/1">Personal info</a></li>
+                        {% endif %}
+                        
+                        
+                        {% if user_logged_in %}
+                        <li> <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
+                                <button type="submit" >Kirjaudu ulos</button>
+                            </from> </li>
+                        {% else %}
+                        <li><a href="{{base_path}}/login">Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

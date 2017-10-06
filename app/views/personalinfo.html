@@ -1,18 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <!--TODO: tyylittely-->
-<script>
-    function onEditClick(){
-        document.getElementById("unedibleinformation").style.display = "none";
-        document.getElementById("edibleparts").style.display = "auto";
-        
-    }
-    
-    
-</script>
 
 <h1><b>Omat tiedot</b></h1>
-<button type="button" onclick="onEditClick()" name="editButton">Edit</button>
+{% if user_logged_in %}
+{% if user_logged_in == player %}
+<button type="button" onclick="EditClick()" name="editButton">Edit</button>
+{% endif %}
+{% endif %}
 <div id="edibleparts" style="display: none">
     <form>
         <input type="text" placeholder="{{ player.name }}"/>
@@ -22,13 +17,16 @@
         <button type="submit" name="save_data">Save data</button>
     </form>
 
-    <form>
-        <label alt="Ilmaiset serverit ei maksa itseään, you know?">Enter password if you thing I can survive with out every user, you cruel one...</label>
+    <form method="post" action="{{base_path}}/personalinfo/{{player.id}}/delete">
+        <label>Enter password </label>
+        <p style="display: none">if you thing I can survive with out every user, you cruel one...
+            Ilmaiset serverit ei maksa itseään, you know?</p>
+        <br/>
         <input type="password" placeholder="Enter password"/> 
         <button type="submit" name="delete_account">Delete account</button>
     </form>
 </div>
-<div id="unedibleinformations">
+<div id="unedibleinformations" onmousemove="lataaUudelleenLiikeella()">
     <!--TODO: GET DATA FROM DB!!!-->
     <p><b>Nimimerkki: {{ player.name }}</b></p> 
     <p><b>Email: {{ player.email }}</b></p>
@@ -36,7 +34,9 @@
     <p><b>Lost: {{ playerStats.lost }}</b></p>
     <p><b>Tie: {{ playerStats.tie }}</b></p>
     <p><b>Elo: {{ playerStats.elo }}</b></p>
+    {% if playerStats.nemesis != null %}
     <p><b>Arkkivihollinen: {{ playerStats.nemesis }}</b></p> 
+    {% endif %}
     <!--TODO: Hae nemesiksen nimi eikä id...-->
     <p><b>Favorite card: {% if playerStats.fav_card == -1%} Pelaa enemmän... {% elseif playerStats.fav_card == 0 %} Spock 
             {% elseif playerStats.fav_card == 1 %} Sakset {% elseif playerStats.fav_card == 2 %} Paperi
@@ -50,6 +50,39 @@
 
 
 
+<script>
+       var eleA =  document.getElementById("unedibleinformations");
+        var eleB = document.getElementById("edibleparts");
+        var is_edible_in_scene = false;
+        
+    function EditClick(){
+//               .style.display = "auto";
+//                .style.display = "auto";
+        
+        if(is_edible_in_scene){
+        console.log('moi');
+            eleB.setAttribute("style", "display: none;");
+            eleA.setAttribute("style", "display: auto;");
+            is_edible_in_scene = false;
+        }else{
+             console.log('moi2');
+            eleB.setAttribute("style", "display: auto;");
+            eleA.setAttribute("style", "display: none;");
+            is_edible_in_scene = true;
+        }
+    }
+    
+    
+    
+    var onkoHiiriLiikkunut = false;
+    
+    function lataaUudelleenLiikeella(){
+        onkoHiiriLiikkunu
+        
+    }
+    
+    
+</script>
 
 
 {% endblock %}

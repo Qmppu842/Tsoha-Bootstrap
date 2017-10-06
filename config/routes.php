@@ -7,9 +7,6 @@ $routes->get('/', function() {
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
-$routes->get('/register', function() {
-    HelloWorldController::register();
-});
 //$routes->get('/login', function() {
 //    HelloWorldController::login();
 //});
@@ -43,14 +40,23 @@ $routes->post('/personalinfo/:id/update', function($player_id){
 //DELETE player information
 //TODO: tehdä toimivaksi...
 //Paras todennäköisesti on jos aiheuttaa erillisen alert sivun jonka kautta postin tulkitseminen olisi helpompaa...
-$routes->post('/personalinfo/:id/delete', function($player_id){
-    player_controller::delete($id);    
+$routes->post('/personalinfo/:player_id/delete', function($player_id){
+    player_controller::delete($player_id);    
 });
 $routes->get('/login', function() {
     player_controller::login();
 });
-$routes->post('/login', function() {
+$routes->post('/login', function() { 
     player_controller::loginPost();
+});
+$routes->post('/logout', function(){
+    player_controller::logout();
+});
+$routes->get('/register', function() {
+    player_controller::register();
+});
+$routes->post('/register', function() {
+    player_controller::registerPost();
 });
 
 

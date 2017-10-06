@@ -3,25 +3,25 @@
 <!--TODO: tyylittely-->
 <h2>Register</h2>
 
-<form>
+<form method="post" action="{{base_path}}/register">
     <label>Username</label>
-    <input type="text" placeholder="Enter username" required="true"/>
+    <input id="name" name="username" type="text" placeholder="Enter username" required="true"/>
     <br/>
 
     <label>Password</label>
-    <input type="password" name="password" required="true" placeholder="Enter password" />
+    <input id="password" name="password" type="password" name="password" required="true" placeholder="Enter password" />
     <br/>
 
     <label>Password again</label>
-    <input type="password" name="password" required="true" placeholder="Enter password again" />
+    <input id="password1" name="password" type="password" name="password" required="true" placeholder="Enter password again" />
     <br/>
 
     <label>Email</label>
-    <input type="email" placeholder="Enter email" required="false"/>
+    <input id="email" name="email" type="email" placeholder="Enter email" required="false"/>
     <br/>
 
     <label>Email again</label>
-    <input type="email" placeholder="Enter email" required="false"/>
+    <input id="email1" onchange="isSame(email)" name="email" type="email" placeholder="Enter email" required="false"/>
     <br/>
     <!--TODO: mahdollinen oma suolan ja pippurin lisäys-->
 
@@ -29,6 +29,19 @@
 
 </form>
 
+
+<script>
+    
+    
+//    TODO: make some sense... Tee toimiva vertailu ennen submittia.
+    function isSame(name){
+        var fields = document.getElementByName(name).querySelectorAll();
+        
+    }
+    
+    
+    
+</script>
 
 
 {% endblock %}

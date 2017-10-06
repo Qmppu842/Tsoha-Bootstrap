@@ -63,7 +63,7 @@ class Game extends BaseModel {
         Kint::dump($row);
     }
          public function destroy($id) {
-        $query = DB::connection()->prepare('DELETE Game WHERE id = :id ');
+        $query = DB::connection()->prepare('DELETE FROM Game WHERE id = :id ');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 

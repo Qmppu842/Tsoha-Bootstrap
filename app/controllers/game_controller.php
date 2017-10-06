@@ -47,6 +47,10 @@ class game_controller extends BaseController {
 
 
     public static function joinGame() {
+//        if (self::check_logged_in() == null) {
+//            Redirect::to('/', array('message' => 'Kirjatumis pakko...'));
+//        }
+        self::check_logged_in();
         $openGames = playergame::findAllGamesWithSpace();
         Kint::dump($openGames);
         View::make('joinGame.html', array('openGames' => $openGames));

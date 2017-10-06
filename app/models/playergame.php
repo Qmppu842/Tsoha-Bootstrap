@@ -224,7 +224,7 @@ class playergame extends BaseModel {
     }
 
     public function destroyByGameId($id) {
-        $query = DB::connection()->prepare('DELETE Playergame WHERE game_id = :id ');
+        $query = DB::connection()->prepare('DELETE FROM Playergame WHERE game_id = :id ');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
