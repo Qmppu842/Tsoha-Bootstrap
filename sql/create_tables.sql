@@ -23,7 +23,7 @@ CREATE TABLE Playerstats(
     curr_streak int DEFAULT 0,
     nemesis int REFERENCES player(id) NULL,
     fav_card int DEFAULT -1,
-    elo int DEFAULT 500
+    elo int DEFAULT 1000
 );
 
 CREATE TABLE Playergame(

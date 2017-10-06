@@ -41,7 +41,7 @@ class BaseModel {
         if (strpos($email, '@') !== FALSE) {
             $this->errors[] = 'Ät merkin puute vaikeuttaa emailin käyttöä...';
         }
-//        TODO: Muuta paremmaksi regex lauseella kun ehdit esim. https://stackoverflow.com/questions/4366730/how-do-i-check-if-a-string-contains-a-specific-word
+        //TODO: Muuta paremmaksi regex lauseella kun ehdit esim. https://stackoverflow.com/questions/4366730/how-do-i-check-if-a-string-contains-a-specific-word
 
 
         return $errors;

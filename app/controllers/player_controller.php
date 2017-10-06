@@ -72,8 +72,11 @@ class player_controller extends BaseController {
 
         if (!$player) {
             //TODO: Login error login sivuun
+            echo 'Moi, tämä on login error.';
         } else {
             //TODO: User etusivu.
+            $_SESSION['user'] = $player->id;
+            Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $player->name . '!'));
         }
 
 

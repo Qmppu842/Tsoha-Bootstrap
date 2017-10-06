@@ -13,6 +13,8 @@ class playerstats_controller {
     }
 
     public static function personalLadder($id) {
+//        echo 'moii';
+//        die();
         $player = player::find($id);
         $stats = playerstats::find($id);
         

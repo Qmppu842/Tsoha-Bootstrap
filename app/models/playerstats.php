@@ -83,6 +83,19 @@ class playerstats extends BaseModel {
         Kint::dump($row);
     }
 
+    public function combineThisPlayerToGivenPlayer($id) {
+        $addThisPlayer = playerstats::find($id);
+//        public $player_id, $won, $lost, $tie, $best_streak,
+//                $avg_streak, $curr_streak, $nemesis, $fav_card, $elo;
+        $this->won += $addThisPlayer->won;
+        $this->lost += $addThisPlayer->lost;
+        $this->tie += $addThisPlayer->tie;
+        $this->avg_streak = ($this->avg_streak + $addThisPlayer->avg_streak)/2;
+        $this->best_streak = max($addThisPlayer->best_streak, $this->best_streak);
+        $this->curr_streak = max($addThisPlayer->curr_streak, $this->curr_streak);
+        $this->elo += $addThisPlayer->elo-1000; 
+    }
+
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE Playerstats WHERE player_id = :id ');
         $query->execute(array('id' => $id));

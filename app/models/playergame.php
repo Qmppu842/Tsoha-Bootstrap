@@ -206,19 +206,19 @@ class playergame extends BaseModel {
 //        $query = DB::connection()->prepare('UPDATE Playergame SET name, email, password WHERE id = :id ');
 //        $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'id' => $id));
 //        $row = $query->fetch();
-//
+
 //        Kint::dump($row);
 
         error_log('Playergame ei pitäisi tarvita updatea...');
     }
 
     public function destroyByPlayerId($id) {
-//        $query = DB::connection()->prepare('DELETE Playergame WHERE player_id = :id ');
-//        $query->execute(array('id' => $id));
-//        $row = $query->fetch();
-//
-//        Kint::dump($row);
-        error_log('Tätä ei pidä käyttää missään tilanteessa');
+        $query = DB::connection()->prepare('UPDATE Playergame SET player_id = 1 WHERE player_id = :id ');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+//        error_log('Tätä ei pidä käyttää missään tilanteessa');
         
         //TODO: Aina kun pelaaja poistetaan niin pelien invalidoinnin välttämiseksi tee dummy account joka korvaa sen jälkeen pelaajan ja sitten dummy account saa voitot ja häviöt
     }

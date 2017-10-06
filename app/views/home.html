@@ -7,8 +7,7 @@
 </div>
 <h2>Viimeisimmät pelit</h2>
 <div class="gamefeed">
-    <!--TODO:-->
-    Ota tietokannasta pelijä jotka ovat jo loppuneet.
+    <!--TODO: Ota tietokannasta pelijä jotka ovat jo loppuneet.  -->
 </div>
 <ul>
     <!--TODO: tee tämä toimivaksi mieluummin niin että on erille html sivu joka
@@ -19,7 +18,7 @@
             {{ games[i].name }}
             <!--{{ Game.date }}-->
         </p>
-        <a href="{{base_path}}/detailedGameInfo/{{games[i].id}}"> Show more</a>
+        <a href="{{base_path}}/detailedGameInfo/{{games[i]}}"> Show more</a>
 
     </li>
     {% endfor %}

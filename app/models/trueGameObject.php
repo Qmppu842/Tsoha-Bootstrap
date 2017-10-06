@@ -8,6 +8,7 @@
 
 /**
  * Description of trueGameObject
+ * Kuollut luokka oikeasti...
  *
  * @author olindqvi
  */
