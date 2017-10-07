@@ -13,14 +13,19 @@ class player extends BaseModel {
         parent::__construct($attributes);
     }
 
+    /**
+     * 
+     * @param type $id
+     * @return \player
+     */
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT * FROM Player WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
-        
+
         Kint::dump($row);
 //        die();
-        
+
         if ($row) {
             $player = new player(array(
                 'id' => $row['id'],
@@ -32,6 +37,11 @@ class player extends BaseModel {
         return $player;
     }
 
+    /**
+     * Returns all players in database.
+     * 
+     * @return \player
+     */
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM Player');
         $query->execute();
@@ -65,17 +75,25 @@ class player extends BaseModel {
         Kint::dump($row);
     }
 
+    /**
+     * Finds tables that use player_id and 
+     * deletes them before deleting player it self.
+     *  
+     * @param type $id
+     */
     public function destroy($id) {
         $stats = playerstats::find($id);
         $stats->destroy($id);
+        playergame::destroyByPlayerId($id);
         $query = DB::connection()->prepare('DELETE FROM player WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
-            
-        
+
+
         Kint::dump($row);
     }
+
     /**
      * 
      * @param type $namee
@@ -86,11 +104,11 @@ class player extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Player WHERE LOWER(name) = LOWER(:name) AND password = :password LIMIT 1');
         $query->execute(array('name' => $namee, 'password' => $passwordd));
         $row = $query->fetch();
-        
+
         Kint::dump($row);
         Kint::dump($namee);
         Kint::dump($passwordd);
-        
+
         if ($row) {
             return new player(array('id' => $row['id'], 'name' => $row['name'],
                 'email' => $row['email'], 'password' => $row['password']));
@@ -98,8 +116,7 @@ class player extends BaseModel {
             return null;
         }
     }
-    
-    
+
     /**
      * If one true god is missing use this method to add ONETRUEBOTGOD to database.
      * 
@@ -107,12 +124,12 @@ class player extends BaseModel {
      */
     public static function missingOneTrueGod() {
         $TRUEBOTGOD = new player(array(
-                'id' => 165,
-                'name' => 'ONETRUEBOTGOD',
-                'password' => '10d64815c8ea017046a5724d7b8953c7'));
+            'id' => 165,
+            'name' => 'ONETRUEBOTGOD',
+            'password' => '10d64815c8ea017046a5724d7b8953c7'));
         //TODO: hae serverien välityksellä yllä oleva kenttä jotta ONETRUEBOTGOD voi säilyä puhtaana.
         $TRUEBOTGOD->save();
-        return $TRUEBOTGOD; 
+        return $TRUEBOTGOD;
     }
 
 }

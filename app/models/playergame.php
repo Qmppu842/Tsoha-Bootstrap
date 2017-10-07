@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Description of playergame
+ * Description of playergame is:
+ * This is point between playergame table in database and rest of the program.
  *
  * @author olindqvi
  */
 class playergame extends BaseModel {
-
-    //put your code here
 
     public $player_id, $game_id, $picked;
 
@@ -64,18 +63,18 @@ class playergame extends BaseModel {
         }
     }
 
-//      private function addPlayerToGame($player_id, $picked) {
-//        if (count($this->players) < 3) {
-//            $this->players[] = player::find($player_id);
-//        } else {
-//            trigger_error("Peli on jo täynnä");
-//        }
-//    }
-
+    /**
+     * Ottaaa game_id:n jonka perusteella paluttaa 
+     * pelaajat pelissä.
+     * 
+     * @param type $id
+     * @return \playergame
+     */
     public static function findGamePlayers($id) {
         $query = DB::connection()->prepare('SELECT * FROM Playergame WHERE game_id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
+        //TODO: ei vaikuta toimivalta tarkista tämä.
         if ($row) {
             $game = new playergame(array(
                 'player_id' => $row['player_id'],
@@ -102,9 +101,15 @@ class playergame extends BaseModel {
         }
         return $playersInGame;
     }
-    
-    public static function playerCountInGame($game_id){
-         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Playergame WHERE game_id = :game_id');
+
+    /**
+     * Hakee game_id:n perustaalla pelaaja määrän.
+     * 
+     * @param type $game_id
+     * @return int
+     */
+    public static function playerCountInGame($game_id) {
+        $query = DB::connection()->prepare('SELECT COUNT(*) FROM Playergame WHERE game_id = :game_id');
         $query->execute(array('game_id' => $game_id));
 
         $rows = $query->fetchAll();
@@ -121,27 +126,15 @@ class playergame extends BaseModel {
         echo 'Jos näet tämän niin mene playergameen playerCountInGame metodiin';
         //TODO: muuta palautus arvo vastaamaan countin tulosta
         return 1;
-        
-        
     }
 
-//    public static function findAllGamesWithSpace() {
-//        $query = DB::connection()->prepare('SELECT * FROM Playergame');
-//        $query->execute();
-//
-//        $rows = $query->fetchAll();
-//        $games = array();
-//
-//        foreach ($rows as $row) {
-//            $games[] = new playergame(array(
-//                'player_id' => $row['player_id'],
-//                'game_id' => $row['game_id'],
-//                'picked' => $row['picked']
-//            ));
-//        }
-//        return $games;
-//    }
-
+    
+    
+    /**
+     * Tämä palauttaa kaikki pelit missä on tilaa
+     * 
+     * @return type
+     */
     public static function findAllGamesWithSpace() {
         $query = DB::connection()->
                 prepare('SELECT id, name, COUNT(*) FROM Game g FULL OUTER JOIN Playergame pg ON g.id = pg.game_id GROUP BY g.id HAVING (COUNT(*)) < 3;');
@@ -179,6 +172,12 @@ class playergame extends BaseModel {
         return $games;
     }
 
+    /**
+     * Etsii kaikki pelit missä on tilaa
+     * ja palauttaa ne.
+     * 
+     * @return \playergame
+     */
     public static function findAllGamesWithNoSpace() {
         $query = DB::connection()->prepare('SELECT game_id, COUNT(*) FROM Playergame GROUP BY game_id HAVING (COUNT(*)) >= 3;');
         $query->execute();
@@ -202,28 +201,50 @@ class playergame extends BaseModel {
         $query->fetch();
     }
 
+    /**
+     * Päivittää pelaajan valinnan kyseisessä pelissä
+     * 
+     * @param type $id
+     */
     public function update($id) {
-//        $query = DB::connection()->prepare('UPDATE Playergame SET name, email, password WHERE id = :id ');
-//        $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'id' => $id));
+        //TODO: tämän on pakko tarvita game_id, player_id ja picked
+        //ilman niitä on luvatonta käyttää tätä metodia
+//        $query = DB::connection()->prepare('UPDATE Playergame SET picked = :picked WHERE player_id = :player_id AND game_id = :game_id');
+//        $query->execute(array('picked' => $this->picked, 'player_id' => $this->player_id, 'game_id' => $this->game_id));
 //        $row = $query->fetch();
-
+//
 //        Kint::dump($row);
 
         error_log('Playergame ei pitäisi tarvita updatea...');
+        error_log('^Korjaus kyllä tätä voi käyttää mutta ei vielä toiminta kunnossa.');
         //TODO: tosin voisi kyllä tehdä mahdollisuuden vaihtaa omaa valintaansa ennen kun peli on päättynyt.
     }
 
-    public function destroyByPlayerId($id) {
+    /**
+     * Tuhoaa kaiken peleihin liittymistiedot pelaaja kohtaisesti
+     * 
+     * 
+     * Tosin todellisuudessa jottei muiden peli ilo mene hukaan niin pelien poiston
+     * sijasta vaihdetaan pelissä ollut pelaaja aina oikeassa olevaan ja aina pelaamaan
+     * halukkaaseen ONETRUEBOTGOD käyttäjään.
+     * 
+     * @param type $id
+     */
+    public static function destroyByPlayerId($id) {
         $query = DB::connection()->prepare('UPDATE Playergame SET player_id = 165 WHERE player_id = :id ');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         Kint::dump($row);
 //        error_log('Tätä ei pidä käyttää missään tilanteessa');
-        
         //TODO: Aina kun pelaaja poistetaan niin pelien invalidoinnin välttämiseksi tee dummy account joka korvaa sen jälkeen pelaajan ja sitten dummy account saa voitot ja häviöt
     }
 
+    /**
+     * Tuhoaa peliin osallistumiset. 
+     * 
+     * @param type $id
+     */
     public function destroyByGameId($id) {
         $query = DB::connection()->prepare('DELETE FROM Playergame WHERE game_id = :id ');
         $query->execute(array('id' => $id));
