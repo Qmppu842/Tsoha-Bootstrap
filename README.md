@@ -22,7 +22,7 @@ Aiheeni on laajennettu kivi paperi sakset peli joka toimii tietokannassa.
 ### Käyttö ohje alustavasti
 Tulevaisuudessa voi [rekisteröityä täällä](http://olindqvi.users.cs.helsinki.fi/tsoha_tsoha/register)
 Tai [kirjatua täällä](http://olindqvi.users.cs.helsinki.fi/tsoha_tsoha/login)
-tunnuksilla jotka tällä hetkellä ovat TestUser ja salasana: salsasana123.
+tunnuksilla jotka tällä hetkellä ovat username: TestUser ja salasana: salsasana123.
 
 Sen jälkeen pääsisi etusivulle josta näkee helposti omat menneet pelinsä.
 
