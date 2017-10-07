@@ -58,7 +58,7 @@ class player extends BaseModel {
     }
 
     public function update($id) {
-        $query = DB::connection()->prepare('UPDATE Player SET name, email, password WHERE id = :id ');
+        $query = DB::connection()->prepare('UPDATE Player SET name =  :name, email = :email, password = :password WHERE id = :id ');
         $query->execute(array('name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'id' => $id));
         $row = $query->fetch();
 
@@ -76,9 +76,14 @@ class player extends BaseModel {
         
         Kint::dump($row);
     }
-
+    /**
+     * 
+     * @param type $namee
+     * @param type $passwordd
+     * @return Found player or Null
+     */
     public static function authenticate($namee, $passwordd) {
-        $query = DB::connection()->prepare('SELECT * FROM Player WHERE name = :name AND password = :password LIMIT 1');
+        $query = DB::connection()->prepare('SELECT * FROM Player WHERE LOWER(name) = LOWER(:name) AND password = :password LIMIT 1');
         $query->execute(array('name' => $namee, 'password' => $passwordd));
         $row = $query->fetch();
         
@@ -92,6 +97,22 @@ class player extends BaseModel {
         } else {
             return null;
         }
+    }
+    
+    
+    /**
+     * If one true god is missing use this method to add ONETRUEBOTGOD to database.
+     * 
+     * @return player-object
+     */
+    public static function missingOneTrueGod() {
+        $TRUEBOTGOD = new player(array(
+                'id' => 165,
+                'name' => 'ONETRUEBOTGOD',
+                'password' => '10d64815c8ea017046a5724d7b8953c7'));
+        //TODO: hae serverien välityksellä yllä oleva kenttä jotta ONETRUEBOTGOD voi säilyä puhtaana.
+        $TRUEBOTGOD->save();
+        return $TRUEBOTGOD; 
     }
 
 }

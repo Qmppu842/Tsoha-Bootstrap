@@ -5,6 +5,7 @@ INSERT INTO Player (name, password, email) VALUES ('omppu','moimaailma', 'omppu@
 INSERT INTO Player (name, password) VALUES ('omppu1','m1');
 INSERT INTO Player (name, password) VALUES ('omppu2','m2');
 INSERT INTO Player (name, password) VALUES ('omppu3','m3');
+INSERT INTO Player (name, password) VALUES ('TestUser','salsasana123');
 
 -- Game taulun testidata
 INSERT INTO Game (name) VALUES ('Testgame0');

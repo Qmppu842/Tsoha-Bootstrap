@@ -173,7 +173,7 @@ class playergame extends BaseModel {
         $games = $rows;
         Kint::dump($rows);
         Kint::dump($games);
-//        TODO: Selvitä tämä käyttäytimeninen ja miksi ohjelma ei toimi tietyillä arvoilla vaikka kint sanoo arvoja olevan paljon enemmän
+        //TODO: Selvitä tämä käyttäytimeninen ja miksi ohjelma ei toimi tietyillä arvoilla vaikka kint sanoo arvoja olevan paljon enemmän
 //        Mitä ihmettä tässä tapahtuu.....
 //        katso kint joingame sivulta lisä infoksi.
         return $games;
@@ -210,10 +210,11 @@ class playergame extends BaseModel {
 //        Kint::dump($row);
 
         error_log('Playergame ei pitäisi tarvita updatea...');
+        //TODO: tosin voisi kyllä tehdä mahdollisuuden vaihtaa omaa valintaansa ennen kun peli on päättynyt.
     }
 
     public function destroyByPlayerId($id) {
-        $query = DB::connection()->prepare('UPDATE Playergame SET player_id = 1 WHERE player_id = :id ');
+        $query = DB::connection()->prepare('UPDATE Playergame SET player_id = 165 WHERE player_id = :id ');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 

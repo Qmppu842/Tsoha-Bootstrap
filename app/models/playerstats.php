@@ -31,11 +31,11 @@ class playerstats extends BaseModel {
                 'elo' => $row['elo']
             ));
         }
-        
-        if(!isset($stats)){
-           $stats = new playerstats(array('player_id' => $id));
-           $stats->newPlayer();
-           return self::find($id);
+
+        if (!isset($stats)) {
+            $stats = new playerstats(array('player_id' => $id));
+            $stats->addDefaultStatsForNewPlayer();
+            return self::find($id);
         }
         return $stats;
     }
@@ -74,7 +74,8 @@ class playerstats extends BaseModel {
         $row = $query->fetch();
         $this->player_id = $row['player_id'];
     }
-    public function newPlayer() {
+
+    public function addDefaultStatsForNewPlayer() {
         $query = DB::connection()->prepare('INSERT INTO Playerstats (player_id) VALUES (:player_id) RETURNING player_id;');
         $query->execute(array('player_id' => $this->player_id));
         $row = $query->fetch();
@@ -96,7 +97,11 @@ class playerstats extends BaseModel {
     }
 
     public function combineThisPlayerToGivenPlayer($id) {
-        $addThisPlayer = playerstats::find($id);
+        $addToThisPlayer = playerstats::find($id);
+        if (!isset($addToThisPlayer)) {
+            $TRUEBOTGOD = player::missingOneTrueGod();
+            $addToThisPlayer = playerstats::find($TRUEBOTGOD->id);
+        }
         Kint::dump($id);
 //        public $player_id, $won, $lost, $tie, $best_streak,
 //                $avg_streak, $curr_streak, $nemesis, $fav_card, $elo;
@@ -107,21 +112,21 @@ class playerstats extends BaseModel {
 //        $this->best_streak = max($addThisPlayer->best_streak, $this->best_streak);
 //        $this->curr_streak = max($addThisPlayer->curr_streak, $this->curr_streak);
 //        $this->elo += $addThisPlayer->elo-1000; 
-        
-        $addThisPlayer->won += $this->won;
-        $addThisPlayer->lost += $this->lost;
-        $addThisPlayer->tie += $this->tie;
-        $addThisPlayer->avg_streak = ($this->avg_streak + $addThisPlayer->avg_streak)/2;
-        $addThisPlayer->best_streak = max($addThisPlayer->best_streak, $this->best_streak);
-        $addThisPlayer->curr_streak = max($addThisPlayer->curr_streak, $this->curr_streak);
-        $addThisPlayer->elo += $this->elo-1000; 
-        $addThisPlayer->save();
+
+        $addToThisPlayer->won += $this->won;
+        $addToThisPlayer->lost += $this->lost;
+        $addToThisPlayer->tie += $this->tie;
+        $addToThisPlayer->avg_streak = ($this->avg_streak + $addToThisPlayer->avg_streak) / 2;
+        $addToThisPlayer->best_streak = max($addToThisPlayer->best_streak, $this->best_streak);
+        $addToThisPlayer->curr_streak = max($addToThisPlayer->curr_streak, $this->curr_streak);
+        $addToThisPlayer->elo += $this->elo - 1000;
+        $addToThisPlayer->save();
     }
 
     public function destroy($id) {
-        $this->combineThisPlayerToGivenPlayer(1);
-        
-        
+        $this->combineThisPlayerToGivenPlayer(165);
+
+
         $query = DB::connection()->prepare('DELETE FROM playerstats WHERE player_id = :id;');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
