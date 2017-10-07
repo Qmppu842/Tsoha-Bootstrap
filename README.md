@@ -13,7 +13,7 @@ Yleisiä linkkejä:
 * [Linkki peliin liittymiseen](http://olindqvi.users.cs.helsinki.fi/tsoha_tsoha/joingame)
 * [Linkki pelikohtaiseen informaatioon](http://olindqvi.users.cs.helsinki.fi/tsoha_tsoha/detailedGameInfo)
 
-
+**HUOM! Vaikuttaa siltä että github ei osaa näytää dokumentaatiotani kokonaisuudessaaan jostain syystä.
 
 ## Työn aihe
 
