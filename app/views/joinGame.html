@@ -4,18 +4,20 @@
 <h1>Game On</h1>
 <!--TODO: tomiva peliin liittyminen-->
 
-<form>
+<div>{{message}}</div>
+
+<form method="post" action="{{base_path}}/joingame">
     <h4>Valitse korttisi</h4>
     <select name="KortinValitsin">
-        <option>Rock</option>
-        <option>Paper</option>
-        <option>Scissors</option>
-        <option>Lizard</option>
-        <option>Spock</option>
+        <option value="1">Scissors</option>
+        <option value="2">Paper</option>
+        <option value="3">Rock</option>
+        <option value="4">Lizard</option>
+        <option value="0">Spock</option>
     </select>
     <h4>Valitse pelisi</h4>
     <select name="GameSelector">
-        <option value="random">Random</option>
+        <option value="-20">Random</option>
         {% for game in openGames %}
         <option value="{{ game.id }}">{{ game.name }}</option>
         {% endfor %}
@@ -27,6 +29,8 @@
          <!--TODO hae tähän avoimet pelit tietokannasta-->
     </select>
     <br/>
-    <input type="submit" value="Submit" name="submit" />
+    <!--<input type="submit"/>-->
+    <!--<input name="player_id" value="{{player.id}}" type="hidden"/>-->
+    <button type="submit" >Submit</button> 
 </form>
 {% endblock %}

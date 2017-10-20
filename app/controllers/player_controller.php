@@ -128,6 +128,8 @@ class player_controller extends BaseController {
     }
     
     public static function logout(){
+//        Kint::trace();
+//        die();
         $_SESSION['user'] = null;
         Redirect::to('/', array('message' => 'Yarrr, Yarrr do what you want because pirates are free Yarrr!! (Logged out)'));
         

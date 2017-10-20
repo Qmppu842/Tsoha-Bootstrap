@@ -23,7 +23,7 @@ class player extends BaseModel {
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
-        Kint::dump($row);
+//        Kint::dump($row);
 //        die();
 
         if ($row) {

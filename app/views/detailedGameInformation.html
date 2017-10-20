@@ -8,7 +8,7 @@
 
     <li>Game name: {{game.name}}</li>
     <li>Game Id: {{game.id}}</li> <!--TODO:delete this field;-->
-    <li>Onko loppunut: {% if game.is_it_over_yet == 1 %} Kyllä {% else %} Ei {% endif %}</li>
+    <li>Onko loppunut: {% if game.is_over_yet == 1 %} Kyllä {% else %} Ei {% endif %}</li>
     <li>Max players: {{game.max_players}}</li>
     <!--TODO: tee joustavampi systeemi näyttämään oikeat pelaaja määrät-->
     <!--TODO: tyylittely-->

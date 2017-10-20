@@ -69,6 +69,10 @@ $routes->post('/register', function() {
 $routes->get('/joingame', function() {
     game_controller::joinGame();
 });
+$routes->post('/joingame', function() {
+    game_controller::joinGamePost();
+//    HelloWorldController::index();
+});
 $routes->get('/gamelog', function() {
     game_controller::GameLog();
 });
