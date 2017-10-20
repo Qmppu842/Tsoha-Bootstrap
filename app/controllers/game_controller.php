@@ -55,7 +55,18 @@ class game_controller extends BaseController {
         self::check_logged_in();
         $openGames = playergame::findAllGamesWithSpace();
 //        Kint::dump($openGames);
-        View::make('joinGame.html', array('openGames' => $openGames));
+        $arrayOfLegalGames = array();
+        foreach ($openGames as $value) {
+            if (playergame::findIfPlayerIsInGame($value, $_SESSION['user'])) {
+                $arrayOfLegalGames[] = $value;
+            }
+        }
+//        var_dump($arrayOfLegalGames);
+//        echo '<br/>';
+//        var_dump($openGames);
+//        die();
+        View::make('joinGame.html', array('openGames' => $arrayOfLegalGames));
+//        self::makeJoinGame($arrayOfLegalGames, '');
     }
 
     public static function joinGamePost() {
@@ -90,19 +101,20 @@ class game_controller extends BaseController {
         }
         $player_id = $_SESSION['user'];
         $arrayOfLegalGames = array();
-        foreach ($arrayOfIds as $jotain => $value) {
-            if (playergame::findIfPlayerIsInGame($value, $player_id)) {
+        foreach ($arrayOfIds as $value) {
+            if (!playergame::findIfPlayerIsInGame($value, $player_id)) {
                 $arrayOfLegalGames[] = $value;
             }
         }
-
-        if (sizeof($arrayOfLegalGames) < 1) {
+        $secc = array();
+        if (sizeof($arrayOfLegalGames) <= 0) {
             $ran = rand(0, 9999999);
             $nimi;
             settype($nimi, 'String');
-            $nimi = 'New and Epic Gaem '.$ran;
+            $nimi = 'New and Epic Gaem ' . $ran;
             $gaem = new Game(array('name' => $nimi));
             Kint::dump($gaem);
+            $secc = $arrayOfLegalGames;
             $arrayOfLegalGames[] = $gaem->save3();
         }
 
@@ -121,11 +133,25 @@ class game_controller extends BaseController {
 //            ));
 //       $joining->save();
 
-        playergame::addPlayerToGame($_SESSION['user'], $usableThings['game'], $usableThings['card']);
         kint::dump($arrayOfLegalGames);
-        kint::dump($arrayOfIds);
+        kint::dump($usableThings['game']);
+        kint::dump($usableThings);
+
+//         kint::dump($arrayOfLegalGames[$usableThings['game']]);
+//         die();
+        playergame::addPlayerToGame($player_id, $arrayOfLegalGames[0], $usableThings['card']);
+//        kint::dump($arrayOfIds);
         kint::dump($openGames);
-        View::make('joinGame.html', array('openGames' => $openGames, 'message' => 'onnistuit kaiketi'));
+        kint::dump($secc);
+        self::makeJoinGame($secc, 'onnistuit kaiketi. Hurraa siis, kaiketi.');
+//        View::make('joinGame.html', array('openGames' => $openGames, 'message' => 'onnistuit kaiketi'));
+    }
+
+    private static function makeJoinGame($openGames, $message) {
+//        if (!isset($openGames)) {
+//            View::make('joinGame.html', array('message' => $message));
+//        }
+        View::make('joinGame.html', array('openGames' => $openGames, 'message' => $message));
     }
 
 }

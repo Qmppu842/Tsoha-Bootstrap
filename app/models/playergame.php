@@ -44,10 +44,28 @@ class playergame extends BaseModel {
         }
         return $games;
     }
-    
-     public static function findIfPlayerIsInGame($game_id, $player_id) {
-        $query = DB::connection()->prepare('SELECT * FROM Playergame WHERE player_id = :player_id AND game_id = :game_id LIMIT 1');
-        $query->execute(array('player_id' => $player_id, 'game_id' => $game_id));
+
+//ss
+//    /**
+//     * 
+//     * return true if this player_id ei ole pelissä.
+//     * 
+//     * @param type $game_id
+//     * @param type $player_id
+//     * @return boolean 
+//     */
+//    ss
+    public static function findIfPlayerIsInGame($game_id, $player_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Playergame WHERE player_id = :player_id AND game_id = :game_id LIMIT 1;');
+//        var_dump($game_id);
+//        echo '<br/>';
+//        var_dump($player_id);
+//        echo '<br/>';
+//        var_dump($query);
+//        Kint::trace();
+//        die();
+
+        $query->execute(array('player_id' => (int) $player_id, 'game_id' => (int) $game_id));
         $row = $query->fetch();
 //        if ($row) {
 //            $game = new playergame(array(
@@ -64,28 +82,30 @@ class playergame extends BaseModel {
     }
 
     public static function addPlayerToGame($player_id, $game_id, $picked) {
+        Kint::dump($game_id);
         $playersInGame = self::findAllPlayersInGame($game_id);
         settype($playersInGame, "int");
-        if ($playersInGame < 3 || Game::find($game_id)->is_over_yet) {
+//        if ($playersInGame < 3) {
             $tietokantalause = 'INSERT INTO Playergame (player_id, game_id, picked) VALUES (  :player_id , :game_id, :picked );';
-            settype($tietokantalause, "string");
+//            settype($tietokantalause, "string");
             $query = DB::connection()->prepare($tietokantalause);
             $query->execute(array('player_id' => $player_id, 'game_id' => $game_id, 'picked' => $picked));
             $row = $query->fetch();
 
-            
+
             $ssd = self::playerCountInGame($game_id);
-            if ($ssd >= 3){
-                Game::endGame($game_id);                
+            if ($ssd >= 3) {
+                Game::endGame($game_id);
+                echo 'hurraa';
             }
             Kint::dump($row);
             Kint::dump($ssd);
 
 //            Kint::trace();
-        } else {
-            trigger_error("Peli täynnä");
+//        } else {
+//            trigger_error("Peli täynnä");
             echo 'lisäämis errori  playergame addplayerstogame';
-        }
+//        }
     }
 
     /**
@@ -111,7 +131,10 @@ class playergame extends BaseModel {
     }
 
     public static function findAllPlayersInGame($game_id) {
-        $query = DB::connection()->prepare('SELECT * FROM Playergame WHERE game_id = :game_id');
+        Kint::trace();
+        Kint::dump($game_id);
+//        die();
+        $query = DB::connection()->prepare('SELECT * FROM Playergame WHERE game_id = :game_id;');
         $query->execute(array('game_id' => $game_id));
 
         $rows = $query->fetchAll();
@@ -148,7 +171,6 @@ class playergame extends BaseModel {
 //            ));
 //        }
 //        var_dump($rows);
-        
 //        Kint::dump($rows);
 //        Kint::dump($rows[0][0]);
         echo 'Jos näet tämän niin mene playergameen playerCountInGame metodiin';
@@ -170,12 +192,16 @@ class playergame extends BaseModel {
         $games = array();
 //
         foreach ($rows as $row) {
-            $games[] = new playergame(array(
+            if (playergame::findIfPlayerIsInGame($row['id'], $_SESSION['user'])) {
+                $games[] = new playergame(array(
 //                'player_id' => $row['player_id'],
-                'id' => $row['id'],
-                'name' => $row['name']
-            ));
+                    'id' => $row['id'],
+                    'name' => $row['name']
+                ));
+            }
         }
+
+
 //        $uniqRows = array_unique($rows);
 //        $d = 3;
 //        for ($a = 0; $a < $d; $a++) {

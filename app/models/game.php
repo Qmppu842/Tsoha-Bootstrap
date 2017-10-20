@@ -65,7 +65,7 @@ class Game extends BaseModel {
     public function save2() {
         var_dump($this);
         Kint::trace();
-        die();
+//        die();
         $query = DB::connection()->prepare('INSERT INTO Game (name, is_over_yet) VALUES (:name, :is_over_yet) RETURNING id;');
         $query->execute(array('name' => $this->name, 'is_over_yet' => $this->getIs_over_yet_for_db()));
         $row = $query->fetch();
@@ -77,8 +77,8 @@ class Game extends BaseModel {
 //        Kint::trace();
 //        die();
         $query = DB::connection()->prepare('INSERT INTO Game (name, is_over_yet) VALUES (:name, :is_over_yet) RETURNING id;');
-        var_dump($this);
-        echo '<br/>';
+//        var_dump($this);
+//        echo '<br/>';
 //        die();
         $query->execute(array('name' => $this->name,
             'is_over_yet' => $this->getIs_over_yet_for_db()));
@@ -89,6 +89,7 @@ class Game extends BaseModel {
 //        var_dump($this);
         $this->id = $row['id'];
 //        var_dump($this);
+        return $this;
     }
 
     function getIs_over_yet_for_db() {
@@ -140,5 +141,9 @@ class Game extends BaseModel {
         $this->is_over_yet = $is_over_yet;
         return $this;
     }
+    public function getId() {
+        return $this->id;
+    }
+
 
 }
